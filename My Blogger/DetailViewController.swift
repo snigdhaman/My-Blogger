@@ -10,8 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var author: UILabel!
 
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var date: UILabel!
 
     var detailItem: AnyObject? {
         didSet {
@@ -23,8 +25,14 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.valueForKey("timeStamp")!.description
+            /*if let authorText = self.author {
+                authorText.text = "Author: " + (detail.valueForKey("author")?.description)!
+            }
+            if let dateText = self.date {
+                dateText.text = "Published: " + (detail.valueForKey("date")?.description)!
+            }*/
+            if let detailWebView = self.webView {
+                detailWebView.loadHTMLString(detail.valueForKey("content")!.description, baseURL: NSURL(string: "http://googleindia.blogspot.in"))
             }
         }
     }
